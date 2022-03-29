@@ -1,17 +1,21 @@
+import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:to_do_app/Widget/custom_conditional_builder.dart';
 import 'package:to_do_app/Widget/custom_item.dart';
 import 'package:to_do_app/components/constant.dart';
+import 'package:to_do_app/cubit/cubit.dart';
+import 'package:to_do_app/cubit/states.dart';
 class TaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-        itemBuilder: (context,index) => customItem(tasks[index]),
-        separatorBuilder: (context,index) => Container(
-          margin: EdgeInsets.only(left: 20),
-          width: double.infinity,
-          height: 1,
-          color: Colors.grey[300],
-        ),
-        itemCount: tasks.length);
+    return BlocConsumer<AppCubit,AppState>(
+      listener: (context,state){},
+      builder: (context,state){
+        var tasks = AppCubit.get(context).newTasks;
+        return customConditional(tasks: tasks);
+      },
+
+    );
   }
 }
